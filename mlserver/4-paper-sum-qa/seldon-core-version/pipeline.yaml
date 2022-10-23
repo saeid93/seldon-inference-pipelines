@@ -1,0 +1,79 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: sum-qa
+spec:
+  name: sum-qa
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  protocol: v2
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/sum-qa-pipelines-mlserver:nlpsum
+          name: nlp-sum 
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: sshleifer/distilbart-cnn-12-6
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TASK
+              value: summarization
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/sum-qa-pipelines-mlserver:nlpqa
+          name: nlp-qa
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: distilbert-base-uncased
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TASK
+              value: question-answering
+            - name: CONTEXT
+              value: default
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+      replicas: 2
+    graph:
+      name: nlp-sum
+      type: MODEL
+      children:
+      - name: nlp-qa
+        type: MODEL
+        children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '4'
+          memory: 4Gi
+        limits:
+          cpu: '4'
+          memory: 4Gi
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

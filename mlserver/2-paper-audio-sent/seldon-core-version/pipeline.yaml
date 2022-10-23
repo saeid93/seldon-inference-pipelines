@@ -1,0 +1,79 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: audio-sent
+spec:
+  name: audio-sent
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  protocol: v2
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/audio-sent-pipelines-mlserver:audio
+          name: audio
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: facebook/s2t-small-librispeech-asr
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TASK
+              value: automatic-speech-recognition
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+      replicas: 1
+    - spec:
+        containers:
+        - image: sdghafouri/audio-sent-pipelines-mlserver:nlpsent
+          name: nlp-sent
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: distilbert-base-uncased-finetuned-sst-2-english
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TASK
+              value: sentiment-analysis
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+      replicas: 2
+    graph:
+      name: audio
+      type: MODEL
+      children:
+      - name: nlp-sent
+        type: MODEL
+        children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '4'
+          memory: 4Gi
+        limits:
+          cpu: '4'
+          memory: 4Gi
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

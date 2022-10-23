@@ -1,0 +1,48 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: nlp-li
+spec:
+  protocol: v2
+  name: nlp-li
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - name: default 
+    componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines-mlserver:nlpli
+          name: nlp-li
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+          env:
+            - name: MODEL_VARIANT
+              value: dinalzein/xlm-roberta-base-finetuned-language-identification
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TASK
+              value: text-classification
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+      replicas: 1
+    graph:
+      name: nlp-li
+      type: MODEL
+      children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '4'
+          memory: 4Gi
+        limits:
+          cpu: '4'
+          memory: 4Gi

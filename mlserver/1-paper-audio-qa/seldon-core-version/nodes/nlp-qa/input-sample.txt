@@ -1,0 +1,1 @@
+{"time": {"arrival_audio": 1664649974.6980114, "serving_audio": 1664649974.9401753}, "output": {"text": "mister quilter is the apostle of the middle classes and we are glad to welcome his gospel"}}

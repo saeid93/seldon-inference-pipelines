@@ -1,0 +1,7 @@
+{
+    "name": "nlp-sent",
+    "implementation": "models.GeneralNLP",
+    "parameters": {
+        "uri": "./fakeuri"
+    }
+}

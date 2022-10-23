@@ -1,0 +1,46 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: audio-sent
+spec:
+  name: audio-sent
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/audio-sent-pipelines:generalaudio
+          name: audio-1
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: facebook/s2t-small-librispeech-asr
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: automatic-speech-recognition 
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/audio-sent-pipelines:generalnlp
+          name: audio-2
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: distilbert-base-uncased-finetuned-sst-2-english
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: sentiment-analysis 
+    graph:
+      name: audio-1
+      type: MODEL
+      children:
+      - name: audio-2
+        type: MODEL
+        children: []
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

@@ -1,0 +1,48 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: audio-qa
+spec:
+  name: audio-qa
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/audio-qa-pipelines:generalaudio
+          name: audio-1
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: facebook/s2t-small-librispeech-asr
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: automatic-speech-recognition 
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/audio-qa-pipelines:generalnlp
+          name: audio-2
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: distilbert-base-uncased
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: question-answering
+            - name: CONTEXT
+              value: default
+    graph:
+      name: audio-1
+      type: MODEL
+      children:
+      - name: audio-2
+        type: MODEL
+        children: []
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

@@ -1,0 +1,75 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: {{ pipeline_name }} 
+spec:
+  name: {{ pipeline_name }}
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines:generalnlp
+          name: nlp-1
+          resources:
+            limits:
+              cpu: {{cpu_limits}}
+            requests:
+              cpu: {{cpu_requests}}
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: {{ node_1_variant }}
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: text-classification
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines:generalnlp
+          name: nlp-2
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: {{cpu_limits}}
+            requests:
+              cpu: {{cpu_requests}}
+          env:
+            - name: MODEL_VARIANT
+              value:  {{ node_2_variant }}
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: translation_fr_to_en
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines:generalnlp
+          name: nlp-3
+          resources:
+            limits:
+              cpu: {{cpu_limits}}
+            requests:
+              cpu: {{cpu_requests}}
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: {{ node_3_variant }}
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: summarization
+    graph:
+      name: nlp-1
+      type: MODEL
+      children:
+      - name: nlp-2
+        type: MODEL
+        children:
+        - name: nlp-3
+          type: MODEL
+          children: []
+    name: example
+    # labels:
+    #   sidecar.istio.io/inject: "true"
+    replicas: 1

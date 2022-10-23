@@ -1,0 +1,7 @@
+{
+    "name": "audio",
+    "implementation": "models.GeneralAudio",
+    "parameters": {
+        "uri": "./fakeuri"
+    }
+}

@@ -1,0 +1,48 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: nlp-trans
+spec:
+  protocol: v2
+  name: nlp-trans
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - name: default 
+    componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines-mlserver:nlptrans
+          name: nlp-trans
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+          env:
+            - name: MODEL_VARIANT
+              value: Helsinki-NLP/opus-mt-fr-en
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TASK
+              value: translation_fr_to_en
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+      replicas: 1
+    graph:
+      name: nlp-trans
+      type: MODEL
+      children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '4'
+          memory: 4Gi
+        limits:
+          cpu: '4'
+          memory: 4Gi

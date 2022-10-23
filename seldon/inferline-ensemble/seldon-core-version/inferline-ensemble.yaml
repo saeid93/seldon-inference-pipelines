@@ -1,0 +1,46 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: inferline-ensemble
+spec:
+  name: inferline-ensemble
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:ensemble-inception
+          name: ensemble-inception
+          imagePullPolicy: Always
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:ensemble-resnet
+          name: ensemble-resnet
+          imagePullPolicy: Always
+    - spec:
+        containers: 
+        - image: sdghafouri/inferline:ensemble-alexnet
+          name: ensemble-alexnet
+          imagePullPolicy: Always
+    - spec:
+        containers: 
+        - image: sdghafouri/inferline:ensemble-combiner
+          name: ensemble-combiner
+          imagePullPolicy: Always
+    graph:
+      name: ensemble-combiner
+      type: COMBINER
+      children:
+      - name: ensemble-alexnet
+        type: MODEL
+        children: []
+      - name: ensemble-inception 
+        type: MODEL
+        children: []
+      - name: ensemble-resnet
+        type: MODEL
+        children: []
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

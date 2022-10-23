@@ -1,0 +1,7 @@
+{
+    "name": "nlp-qa",
+    "implementation": "models.GeneralNLP",
+    "parameters": {
+        "uri": "./fakeuri"
+    }
+}

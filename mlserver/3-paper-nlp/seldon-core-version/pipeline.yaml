@@ -1,0 +1,105 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: nlp
+spec:
+  protocol: v2
+  name: nlp
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines-mlserver:nlpli
+          name: nlp-li
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: dinalzein/xlm-roberta-base-finetuned-language-identification
+            - name: TASK
+              value: text-classification
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+      replicas: 1
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines-mlserver:nlptrans
+          name: nlp-trans
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: Helsinki-NLP/opus-mt-fr-en
+            - name: TASK
+              value: translation_fr_to_en
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '8'
+              memory: 8Gi
+            limits:
+              cpu: '8'
+              memory: 8Gi
+      replicas: 1
+    - spec:
+        containers:
+        - image: sdghafouri/nlp-pipelines-mlserver:nlpsum
+          name: nlp-sum
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: sshleifer/distilbart-cnn-12-6
+            - name: TASK
+              value: summarization
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+          resources:
+            requests:
+              cpu: '8'
+              memory: 4Gi
+            limits:
+              cpu: '8'
+              memory: 4Gi
+      replicas: 1
+    graph:
+      name: nlp-li
+      type: MODEL
+      children:
+      - name: nlp-trans
+        type: MODEL
+        children:
+        - name: nlp-sum
+          type: MODEL
+          children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '8'
+          memory: 4Gi
+        limits:
+          cpu: '8'
+          memory: 4Gi
+    name: example
+    # labels:
+    #   sidecar.istio.io/inject: "true"
+    replicas: 1

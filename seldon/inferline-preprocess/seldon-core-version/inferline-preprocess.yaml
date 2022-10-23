@@ -1,0 +1,33 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: inferline-preprocess
+spec:
+  name: inferline-preprocess
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:preprocess-image-model
+          name: image-model
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIATION
+              value: resnet50
+    - spec:
+        containers: 
+        - image: sdghafouri/inferline:preprocess-transformer
+          name: transformer
+          imagePullPolicy: Always
+    graph:
+      name: transformer
+      type: TRANSFORMER
+      children:
+      - name: image-model
+        type: MODEL
+        children: [] 
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

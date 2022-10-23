@@ -1,0 +1,7 @@
+{
+    "name": "nlp-sum",
+    "implementation": "models.GeneralNLP",
+    "parameters": {
+        "uri": "./fakeuri"
+    }
+}

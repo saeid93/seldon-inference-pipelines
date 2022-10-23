@@ -1,0 +1,38 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: video-monitoring
+spec:
+  name: video-monitoring
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/pipeline-prototype:yolo
+          name: video-yolo
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: yolov5m
+    - spec:
+        containers:
+        - image: sdghafouri/pipeline-prototype:resnet-human
+          name: video-resnet-human
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: resnet18
+    graph:
+      name: video-yolo
+      type: MODEL
+      children:
+      - name: video-resnet-human
+        type: MODEL
+        children: []
+    name: example
+    # labels:
+    #   sidecar.istio.io/inject: "true"
+    replicas: 1

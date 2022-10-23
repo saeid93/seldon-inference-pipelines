@@ -1,0 +1,63 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: inferline-video
+spec:
+  name: inferline-video
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:video-yolo
+          name: video-yolo
+          imagePullPolicy: Always
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:video-resnet-human
+          name: video-resnet-human
+          imagePullPolicy: Always
+          env:
+            - name: WITH_PREPROCESSOR
+              value: 'False'
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:video-resnet-vehicle
+          name: video-resnet-vehicle
+          imagePullPolicy: Always
+          env:
+            - name: WITH_PREPROCESSOR
+              value: 'False'
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:video-openaplr
+          name: video-openaplr
+          imagePullPolicy: Always
+          env:
+            - name: WITH_PREPROCESSOR
+              value: 'False'
+    - spec:
+        containers: 
+        - image: sdghafouri/inferline:video-combiner
+          name: video-combiner
+          imagePullPolicy: Always
+    graph:
+      name: video-yolo
+      type: MODEL
+      children:
+      - name: video-combiner
+        type: COMBINER
+        children:
+        - name: video-resnet-human
+          type: MODEL
+          children: []
+        - name: video-resnet-vehicle 
+          type: MODEL
+          children: []
+        - name: video-openaplr
+          type: MODEL
+          children: []
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

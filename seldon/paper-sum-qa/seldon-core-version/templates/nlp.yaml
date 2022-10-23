@@ -1,0 +1,48 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: {{ pipeline_name }} 
+spec:
+  name: {{ pipeline_name }}
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/sum-qa-pipelines:nlpsum
+          name: nlp-1
+          
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: {{ node_1_variant }}
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: summarization
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/sum-qa-pipelines:nlpqa
+          name: nlp-2
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: {{ node_2_variant }}
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: question-answering
+            - name: CONTEXT
+              value: default
+    graph:
+      name: nlp-1
+      type: MODEL
+      children:
+      - name: nlp-2
+        type: MODEL
+        children: []
+    name: example
+    # labels:
+    #   sidecar.istio.io/inject: "true"
+    replicas: 1

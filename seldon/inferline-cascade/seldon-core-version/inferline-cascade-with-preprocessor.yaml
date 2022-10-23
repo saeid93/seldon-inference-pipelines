@@ -1,0 +1,57 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: inferline-cascade-with-preprocessor
+spec:
+  name: inferline-cascade-with-preprocessor
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:cascade-transformer
+          name: cascade-transformer
+          imagePullPolicy: Always
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:cascade-inception
+          name: cascade-inception
+          imagePullPolicy: Always
+          env:
+            - name: WITH_PREPROCESSOR
+              value: 'True'
+    - spec:
+        containers:
+        - image: sdghafouri/inferline:cascade-resnet
+          name: cascade-resnet
+          imagePullPolicy: Always
+          env:
+            - name: THRESHOLD
+              value: "0.85"
+            - name: WITH_PREPROCESSOR
+              value: 'True'
+    - spec:
+        containers: 
+        - image: sdghafouri/inferline:cascade-router
+          name: cascade-router
+          imagePullPolicy: Always
+          # env:
+            # - name: SELDON_LOG_LEVEL
+            #   value: "DEBUG"
+    graph:
+      name: cascade-transformer
+      type: TRANSFORMER
+      children:
+      - name: cascade-resnet
+        type: MODEL
+        children:
+        - name: cascade-router
+          type: ROUTER
+          children:
+          - name: cascade-inception 
+            type: MODEL
+            children: [] 
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

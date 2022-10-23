@@ -1,0 +1,54 @@
+
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: {{ pipeline_name }}
+spec:
+  name: {{ pipeline_name }} 
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/audio-qa-pipelines:generalaudio
+          name: audio-1
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 8
+          env:
+            - name: MODEL_VARIANT
+              value: {{ node_1_variant }}
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: automatic-speech-recognition 
+    - spec:
+        containers:
+        - image: gcr.io/hale-ivy-335012/audio-qa-pipelines:generalnlp
+          name: audio-2
+          resources:
+            limits:
+              cpu: 8
+          imagePullPolicy: Always
+          env:
+            - name: MODEL_VARIANT
+              value: {{ node_2_variant }} 
+            - name: TRANSFORMERS_CACHE
+              value: /app/.cache
+            - name: TASK
+              value: question-answering
+            - name: CONTEXT
+              value: default
+    graph:
+      name: audio-1
+      type: MODEL
+      children:
+      - name: audio-2
+        type: MODEL
+        children: []
+    name: example
+    # labels:
+    #   sidecar.istio.io/inject: "true"
+    replicas: 1
