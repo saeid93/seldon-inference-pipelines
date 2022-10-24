@@ -4,7 +4,7 @@ This repo contains a set of practice inference graphs implemented using [Seldon 
 
 NOTE: This repo is shared for learning purposes, some of the pipeliens implemented here might not have a real-world usecases and they are not fully tested.
 
-Pull requests, suggestions and completing the list of pipeliens for future implementation are highly appreciated.
+Pull requests, suggestions and completing the list of pipelines for future implementation are highly appreciated.
 
 ## Inference graphs implemented using 1st gen Seldon
 Pipelines from [InferLine: latency-aware provisioning and scaling for prediction serving pipelines](https://dl.acm.org/doi/10.1145/3419111.3421285)
