@@ -56,5 +56,17 @@ Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.
 1. [Clarifai Workflows](https://clarifai.com/clarifai/main/workflows)
 2. [Facebook DLRM](https://github.com/facebookresearch/dlrm)
 
+## Sources of Models
+
+### Audio and Text Models
+
+Source:
+1. [HuggingFace](https://huggingface.co/)
+
+### For Image Models
+
+Source:
+1. [**Timm**](https://github.com/rwightman/pytorch-image-models)
+2. [**TorchVision**](https://github.com/pytorch/vision)
 
 Please give a star if this repo helped you learning somthing new :)
