@@ -66,7 +66,7 @@ Source:
 ### For Image Models
 
 Source:
-1. [**Timm**](https://github.com/rwightman/pytorch-image-models)
-2. [**TorchVision**](https://github.com/pytorch/vision)
+1. [Timm](https://github.com/rwightman/pytorch-image-models)
+2. [TorchVision](https://github.com/pytorch/vision)
 
 Please give a star if this repo helped you learning somthing new :)
