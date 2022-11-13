@@ -70,3 +70,9 @@ Source:
 2. [TorchVision](https://github.com/pytorch/vision)
 
 Please give a star if this repo helped you learning somthing new :)
+
+### TODOs
+1. Examples of Grpc data transfer
+2. Send data in compresss way
+3. Add performance evaluation scripts and load tester
+4. Complete Unfinished pipelines
