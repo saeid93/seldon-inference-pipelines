@@ -76,3 +76,4 @@ Please give a star if this repo helped you learning somthing new :)
 2. Send data in compresss way
 3. Add performance evaluation scripts and load tester
 4. Complete Unfinished pipelines
+5. Example of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
