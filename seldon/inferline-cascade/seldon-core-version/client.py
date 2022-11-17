@@ -11,12 +11,12 @@ from seldon_core.seldon_client import SeldonClient
 os.system('sudo umount -l ~/my_mounting_point')
 os.system('cc-cloudfuse mount ~/my_mounting_point')
 
-data_folder_path = '/home/cc/my_mounting_point/datasets'
+imagenet_folder_path = '/home/cc/my_mounting_point/datasets'
 dataset_folder_path = os.path.join(
-    data_folder_path, 'ILSVRC/Data/DET/test'
+    imagenet_folder_path, 'ILSVRC/Data/DET/test'
 )
 classes_file_path = os.path.join(
-    data_folder_path, 'imagenet_classes.txt'
+    imagenet_folder_path, 'imagenet_classes.txt'
 )
 
 image_names = os.listdir(dataset_folder_path)
@@ -38,8 +38,8 @@ images = {
         dataset_folder_path, image_name) for image_name in image_names[
             :num_loaded_images]}
 
-deployment_name = 'inferline-cascade-with-preprocessor'
-# deployment_name = 'inferline-cascade'
+# deployment_name = 'inferline-cascade-with-preprocessor'
+deployment_name = 'inferline-cascade'
 
 # single node inferline
 gateway_endpoint="localhost:32000"
