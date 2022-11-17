@@ -1,0 +1,57 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: mock-one
+spec:
+  protocol: v2
+  name: mock-one
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - name: default
+    annotations:
+      seldon.io/no-engine: "False"
+    componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/mlserver-mock:mock-one
+          name: mock-one
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+            limits:
+              cpu: '4'
+              memory: 4Gi
+          env:
+            - name: MODEL_VARIANT
+              value: "0"
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "1"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
+      replicas: 1
+    graph: 
+      name: mock-one
+      type: MODEL
+      children: []
+    svcOrchSpec:
+      env:
+      - name: SELDON_LOG_LEVEL
+        value: DEBUG
+      resources:
+        requests:
+          cpu: '4'
+          memory: 4Gi
+        limits:
+          cpu: '4'
+          memory: 4Gi
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1
+

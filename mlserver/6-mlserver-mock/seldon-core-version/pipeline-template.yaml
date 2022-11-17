@@ -1,0 +1,77 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: {{ name }}
+spec:
+  protocol: v2
+  name: {{ name }}
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/mlserver-mock:mock-one
+          name: mock-one
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '{{ cpu_request_1 }}'
+              memory: '{{ memory_request_1 }}'
+            limits:
+              cpu: '{{ cpu_limit_1 }}'
+              memory: '{{ memory_limit_1 }}'
+          env:
+            - name: MODEL_VARIANT
+              value: {{ model_variant_1 }}
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: '{{ max_batch_size_1 }}'
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: '{{ max_batch_time_1 }}'
+      replicas: {{ replicas_1 }}
+    - spec:
+        containers:
+        - image: sdghafouri/mlserver-mock:mock-two
+          name: mock-two
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '{{ cpu_request_2 }}'
+              memory: '{{ memory_request_2 }}'
+            limits:
+              cpu: '{{ cpu_limit_2 }}'
+              memory: '{{ memory_limit_2 }}'
+          env:
+            - name: MODEL_VARIANT
+              value: {{ model_variant_2 }}
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: '{{ max_batch_size_2 }}'
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: '{{ max_batch_time_2 }}'
+      replicas: {{ replicas_2 }}
+    graph:
+      name: mock-one
+      type: MODEL
+      children:
+      - name: mock-two
+        type: MODEL
+        children: []
+    svcOrchSpec:
+      env:
+      - name: SELDON_LOG_LEVEL
+        value: DEBUG
+      resources:
+        requests:
+          cpu: '1'
+          memory: 4Gi
+        limits:
+          cpu: '1'
+          memory: 4Gi
+    name: example
+    labels:
+      sidecar.istio.io/inject: "true"
+    replicas: 1

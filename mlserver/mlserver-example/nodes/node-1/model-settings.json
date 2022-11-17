@@ -1,7 +1,0 @@
-{
-    "name": "node-1",
-    "implementation": "models.NodeOne",
-    "parameters": {
-        "uri": "./fakeuri"
-    }
-}

@@ -1,0 +1,7 @@
+{
+    "name": "mock-two",
+    "implementation": "models.MockTwo",
+    "parameters": {
+        "uri": "./fakeuri"
+    }
+}
