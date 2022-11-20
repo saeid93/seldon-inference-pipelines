@@ -47,7 +47,7 @@ Microservices Execution Frameworks](https://jeongseob.github.io/papers/kannan_eu
 5. [Llama: A Heterogeneous & Serverless Framework for
 Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.pdf)
 6. [Scrooge: A Cost-Effective Deep Learning Inference System](https://dl.acm.org/doi/10.1145/3472883.3486993)
-7. [Nexus](https://homes.cs.washington.edu/~arvind/papers/nexus.pdf)
+7. [Nexus: A GPU Cluster Engine for Accelerating DNN-Based Video Analysis](https://homes.cs.washington.edu/~arvind/papers/nexus.pdf)
 8. [VideoEdge: Processing Camera Streams using Hierarchical Clusters](https://ieeexplore.ieee.org/document/8567661)
 9. [Live Video Analytics at Scale with Approximation and Delay-Tolerance](https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/zhang)
 10. [Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing](https://www.usenix.org/conference/atc22/presentation/choi-seungbeom)
