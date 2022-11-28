@@ -76,7 +76,6 @@ Source:
 Please give a star if this repo helped you learning somthing new :)
 
 ### TODOs
-<<<<<<< HEAD
 1. Send data in compresss way
 2. Add performance evaluation scripts and load tester
 3. Complete Unfinished pipelines
@@ -91,4 +90,3 @@ Please give a star if this repo helped you learning somthing new :)
 5. Example of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
 6. GPU examples
 7. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
->>>>>>> b4f5d8f9573854943b0c70563d4721b5313dbd2e
