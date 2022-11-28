@@ -1,0 +1,83 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: {{ name }}
+spec:
+  protocol: v2
+  name: {{ name }}
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - name: example
+    componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/video-pipelines-mlserver:yolo
+          name: yolo
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '{{ cpu_request_1 }}'
+              memory: '{{ memory_request_1 }}'
+            limits:
+              cpu: '{{ cpu_limit_1 }}'
+              memory: '{{ memory_limit_1 }}'
+          env:
+            - name: MODEL_VARIANT
+              value: {{ model_variant_1 }}
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TORCH_HOME
+              value: /opt/mlserver/.torch
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: '{{ max_batch_size_1 }}'
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: '{{ max_batch_time_1 }}'
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
+      replicas: {{ replicas_1 }}
+    - spec:
+        containers:
+        - image: sdghafouri/video-pipelines-mlserver:resnet-human
+          name: resnet-human
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '{{ cpu_request_2 }}'
+              memory: '{{ memory_request_2 }}'
+            limits:
+              cpu: '{{ cpu_limit_2 }}'
+              memory: '{{ memory_limit_2 }}'
+          env:
+            - name: MODEL_VARIANT
+              value: {{ model_variant_2 }}
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TORCH_HOME
+              value: /opt/mlserver/.torch
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: '{{ max_batch_size_2 }}'
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: '{{ max_batch_time_2 }}'
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
+      replicas: {{ replicas_2 }}
+    graph:
+      name: yolo
+      type: MODEL
+      children:
+      - name: resnet-human
+        type: MODEL
+        children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '8'
+          memory: 4Gi
+        limits:
+          cpu: '8'
+          memory: 4Gi
+    name: example
+    # labels:
+    #   sidecar.istio.io/inject: "true"
+    replicas: 1

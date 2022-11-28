@@ -1,8 +1,7 @@
 import os
 import pathlib
-from barazmoon import MLServerBarAzmoon
-from barazmoon import queue
-from experiments.profiling.single-node.model-iter import load_test
+from barazmoon import MLServerAsyncRest
+import asyncio
 # from barazmoon import responses
 
 
@@ -21,14 +20,14 @@ workload = [3, 4, 2]
 data_shape = [1]
 data_type = 'text'
 
-load_tester = MLServerBarAzmoon(
+load_tester = MLServerAsyncRest(
     endpoint=endpoint,
     http_method=http_method,
     workload=workload,
-    data=[data],
+    data=data,
     data_shape=data_shape,
     data_type=data_type)
 
-load_tester.start()
+responses = asyncio.run(load_tester.start())
 
-print(load_tester.get_responses())
+print(responses)

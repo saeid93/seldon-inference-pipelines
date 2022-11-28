@@ -19,3 +19,6 @@ source: https://huggingface.co/models?filter=text-classification
 huggingface/distilbert-base-uncased-finetuned-mnli
 huggingface/prunebert-base-uncased-6-finepruned-w-distil-mnli
 distilbert-base-uncased-finetuned-sst-2-english
+Souvikcmsa/BERT_sentiment_analysis
+Souvikcmsa/SentimentAnalysisDistillBERT
+Souvikcmsa/Roberta_Sentiment_Analysis

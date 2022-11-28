@@ -1,4 +1,5 @@
-from barazmoon import MLServerBarAzmoon
+from barazmoon import MLServerAsyncRest
+import asyncio
 
 gateway_endpoint="localhost:32000"
 deployment_name = 'nlp'
@@ -26,7 +27,7 @@ data_shape = [1]
 http_method = 'post'
 data_type = 'text'
 
-load_tester = MLServerBarAzmoon(
+load_tester = MLServerAsyncRest(
     endpoint=endpoint,
     http_method=http_method,
     workload=workload,
@@ -34,4 +35,6 @@ load_tester = MLServerBarAzmoon(
     data_shape=data_shape,
     data_type=data_type)
 
-load_tester.start()
+responses = asyncio.run(load_tester.start())
+
+print(responses)

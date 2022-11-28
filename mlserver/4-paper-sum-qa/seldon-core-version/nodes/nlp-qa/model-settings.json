@@ -1,6 +1,8 @@
 {
     "name": "nlp-qa",
     "implementation": "models.GeneralNLP",
+    "max_batch_size": 1,
+    "max_batch_time": 1,
     "parameters": {
         "uri": "./fakeuri"
     }

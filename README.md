@@ -56,6 +56,10 @@ Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.
 1. [Clarifai Workflows](https://clarifai.com/clarifai/main/workflows)
 2. [Facebook DLRM](https://github.com/facebookresearch/dlrm)
 
+## Load Tester
+This repo also includes a small async load tester for sending workloads to the models/pipeliens. 
+You can find it under [async load tester](./async_load_tester) folder.
+
 ## Sources of Models
 
 ### Audio and Text Models
@@ -72,8 +76,9 @@ Source:
 Please give a star if this repo helped you learning somthing new :)
 
 ### TODOs
-1. Examples of Grpc data transfer
-2. Send data in compresss way
-3. Add performance evaluation scripts and load tester
-4. Complete Unfinished pipelines
-5. Example of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
+1. Send data in compresss way
+2. Add performance evaluation scripts and load tester
+3. Complete Unfinished pipelines
+4. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
+5. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
+6. Pipelines implementation in upcoming Seldon core V2

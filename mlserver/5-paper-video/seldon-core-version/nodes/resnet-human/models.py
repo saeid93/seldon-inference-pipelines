@@ -81,7 +81,14 @@ class ResnetHuman(MLModel):
         for request_input in payload.inputs:
             logger.error('request input:\n')
             decoded_inputs = self.decode(request_input)
+            # X: all the inputs from the recived batch
+            # e.g. it len will be of len 5 if we have recived
+            # a batch of size 5 which each contains 4 image
+            # and each X[i] will be of size 4
             X = []
+            # former step timing is an array
+            # containing timing from previous
+            # steps per each input X[i] 
             former_steps_timings = []
             for decoded_input in decoded_inputs:
                 json_inputs = json.loads(decoded_input)
@@ -94,8 +101,16 @@ class ResnetHuman(MLModel):
         self.request_counter += received_batch_len
         self.batch_counter += 1
 
-        # First all images recieved in the last step
+        # mask: make a mask to keep track of images recieved
+        # in the last step
+        # e.g. if we have recieved two input
+        # each containing three and four image
+        # will will have a mask of [3, 4]
         mask = []
+        # X_flatten: is the number flattened list
+        # of inputs e.g. for a batch size of 2
+        # each containing four images we will have
+        # a X_flatten of size 8
         X_flatten = []
         for output_index, output in enumerate(X):
             mask.append(0)
@@ -103,6 +118,7 @@ class ResnetHuman(MLModel):
                 mask[output_index] += 1
                 X_flatten.append(image)
 
+        # preprocessing all images before sending to the model
         logger.error(f"len(X_flatten):\n{len(X_flatten)}\n")
         logger.error(f"mask:\n{mask}\n")
         X_trans = [
@@ -110,8 +126,11 @@ class ResnetHuman(MLModel):
                 Image.fromarray(
                     np.array(image).astype(np.uint8))) for image in X_flatten]
 
-        # give all the images to the models per defined batch size
+        # batch images give all the images to the models
+        # per defined batch size
         predictions = []
+        # complete batch: batch all the X_flatten and then
+        # read them one by one
         complete_batch = torch.stack(X_trans, axis=0)
         timings = []
         for i in range(0, len(complete_batch), self.batch_size):
@@ -129,7 +148,7 @@ class ResnetHuman(MLModel):
             timings += self.batch_size * [timing]
         logger.error(f"{timings=}")
         logger.error(f"{former_steps_timings=}")
-        timing.update(former_steps_timings)
+        # timing.update(former_steps_timings)
         preds_with_time = list()
         pred_index = 0
         for pred_mask, former_step_timing in zip(mask, former_steps_timings):

@@ -10,11 +10,11 @@ spec:
   predictors:
   - name: default
     annotations:
-      seldon.io/no-engine: "False"
+      seldon.io/no-engine: "false"
     componentSpecs:
     - spec:
         containers:
-        - image: sdghafouri/mlserver-mock:mock-one
+        - image: sdghafouri/mlserver-mock-grpc:mock-one
           name: mock-one
           imagePullPolicy: Always
           resources:

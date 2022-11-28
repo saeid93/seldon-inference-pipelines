@@ -1,0 +1,50 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: yolo
+spec:
+  protocol: v2
+  name: yolo
+  annotations:
+    seldon.io/engine-separate-pod: "true"
+  predictors:
+  - name: default 
+    componentSpecs:
+    - spec:
+        containers:
+        - image: sdghafouri/video-pipelines-mlserver-gpu:yolo
+          name: yolo
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: '4'
+              memory: 4Gi
+              # nvidia.com/gpu: 1
+            limits:
+              cpu: '4'
+              memory: 4Gi
+              nvidia.com/gpu: 1
+          env:
+            - name: MODEL_VARIANT
+              value: yolov5m
+            - name: TRANSFORMERS_CACHE
+              value: /opt/mlserver/.cache
+            - name: TORCH_HOME
+              value: /opt/mlserver/.torch
+            - name: MLSERVER_MODEL_MAX_BATCH_SIZE
+              value: "5"
+            - name: MLSERVER_MODEL_MAX_BATCH_TIME
+              value: "1"
+      replicas: 1
+    graph:
+      name: yolo
+      type: MODEL
+      children: []
+    svcOrchSpec:
+      resources:
+        requests:
+          cpu: '4'
+          memory: 4Gi
+        limits:
+          cpu: '4'
+          memory: 4Gi

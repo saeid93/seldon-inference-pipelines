@@ -25,6 +25,8 @@ spec:
               value: "5"
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
               value: "1"
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
           resources:
             requests:
               cpu: '4'
@@ -50,6 +52,8 @@ spec:
               value: "5"
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
               value: "1"
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
           resources:
             requests:
               cpu: '4'

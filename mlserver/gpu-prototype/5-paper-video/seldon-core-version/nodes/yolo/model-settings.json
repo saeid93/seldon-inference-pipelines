@@ -1,0 +1,7 @@
+{
+    "name": "yolo",
+    "implementation": "models.Yolo",
+    "parameters": {
+        "uri": "./fakeuri"
+    }
+}

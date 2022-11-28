@@ -1,10 +1,10 @@
 apiVersion: machinelearning.seldon.io/v1
 kind: SeldonDeployment
 metadata:
-  name: resnet
+  name: resnet-human
 spec:
   protocol: v2
-  name: resnet
+  name: resnet-human
   annotations:
     seldon.io/engine-separate-pod: "true"
   predictors:
@@ -13,7 +13,7 @@ spec:
     - spec:
         containers:
         - image: sdghafouri/video-pipelines-mlserver:resnet-human
-          name: resnet
+          name: resnet-human
           imagePullPolicy: Always
           resources:
             requests:
@@ -30,12 +30,14 @@ spec:
             - name: TORCH_HOME
               value: /opt/mlserver/.torch
             - name: MLSERVER_MODEL_MAX_BATCH_SIZE
-              value: "5"
+              value: "10"
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
               value: "1"
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
       replicas: 1
     graph:
-      name: resnet
+      name: resnet-human
       type: MODEL
       children: []
     svcOrchSpec:

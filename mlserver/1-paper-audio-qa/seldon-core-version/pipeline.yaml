@@ -32,7 +32,7 @@ spec:
               value: "5"
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
               value: "1"
-      replicas: 2
+      replicas: 1
     - spec:
         containers:
         - image: sdghafouri/audio-qa-pipelines-mlserver:nlpqa

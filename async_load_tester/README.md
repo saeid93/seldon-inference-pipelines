@@ -23,8 +23,3 @@ workload = [7, 12, 0, 31, ...]  # each item of the list is the number of request
 tester = MyLoadTester(workload=workload, endpoint="http://IP:PORT/PATH", http_method="post")
 tester.start()
 ```
-
-To install load tester move to this folder and do
-```
-pip install -e .
-```

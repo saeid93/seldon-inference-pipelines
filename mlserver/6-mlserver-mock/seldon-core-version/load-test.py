@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-from barazmoon import MLServerAsync
+from barazmoon import MLServerAsyncRest
 import asyncio 
 from datasets import load_dataset
 
 gateway_endpoint = "localhost:32000"
-deployment_name = 'mlserver-mock'
+deployment_name = 'mock-pipeline'
 namespace = "default"
 endpoint = f"http://{gateway_endpoint}/seldon/{namespace}/{deployment_name}/v2/models/infer"
 
@@ -13,12 +13,12 @@ ds = load_dataset(
     "clean",
     split="validation")
 http_method = 'post'
-workload = [10] * 5 # 10 requests per second for 5 second
+workload = [10, 7, 4, 12, 15]
 data = ds[0]["audio"]["array"].tolist()
 data_shape = [1, len(data)]
 data_type = 'audio'
 
-load_tester = MLServerAsync(
+load_tester = MLServerAsyncRest(
     endpoint=endpoint,
     http_method=http_method,
     workload=workload,
@@ -28,4 +28,4 @@ load_tester = MLServerAsync(
 
 responses = asyncio.run(load_tester.start())
 
-# print(responses)
+print(responses)

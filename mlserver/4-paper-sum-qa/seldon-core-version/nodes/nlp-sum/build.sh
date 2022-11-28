@@ -1,6 +1,6 @@
 REPOS=(
-    sdghafouri
-    gcr.io/hale-ivy-335012)
+    sdghafouri)
+    # gcr.io/hale-ivy-335012)
 IMAGE_NAME=sum-qa-pipelines-mlserver:nlpsum
 PYTHON_ENV=central
 mlserver build . -t $IMAGE_NAME

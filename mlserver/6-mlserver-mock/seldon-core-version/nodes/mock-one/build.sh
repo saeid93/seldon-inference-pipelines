@@ -1,7 +1,7 @@
 REPOS=(
     sdghafouri
     gcr.io/hale-ivy-335012)
-IMAGE_NAME=mlserver-mock:mock-one
+IMAGE_NAME=mlserver-mock-grpc:mock-one
 mlserver build . -t $IMAGE_NAME
 # docker build . --tag=$IMAGE_NAME
 for REPO in ${REPOS[@]}

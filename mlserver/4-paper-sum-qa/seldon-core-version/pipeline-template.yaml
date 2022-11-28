@@ -23,7 +23,7 @@ spec:
               memory: '{{ memory_limit }}'
           env:
             - name: MODEL_VARIANT
-              value: {{ model_vairant }}
+              value: {{ model_variant }}
             - name: TRANSFORMERS_CACHE
               value: /opt/mlserver/.cache
             - name: TASK
@@ -32,6 +32,8 @@ spec:
               value: '{{ max_batch_size }}'
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
               value: '{{ max_batch_time }}'
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
       replicas: {{ replicas }}
     - spec:
         containers:
@@ -40,7 +42,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: MODEL_VARIANT
-              value: {{ model_vairant }}
+              value: {{ model_variant }}
             - name: TRANSFORMERS_CACHE
               value: /opt/mlserver/.cache
             - name: TASK
@@ -51,6 +53,8 @@ spec:
               value: '{{ max_batch_size }}'
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
               value: '{{ max_batch_time }}'
+            - name: MLSERVER_PARALLEL_WORKERS
+              value: "0"
       replicas: {{ replicas }}
     graph:
       name: nlp-sum
