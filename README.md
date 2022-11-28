@@ -47,7 +47,7 @@ Microservices Execution Frameworks](https://jeongseob.github.io/papers/kannan_eu
 5. [Llama: A Heterogeneous & Serverless Framework for
 Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.pdf)
 6. [Scrooge: A Cost-Effective Deep Learning Inference System](https://dl.acm.org/doi/10.1145/3472883.3486993)
-7. [Nexus](https://homes.cs.washington.edu/~arvind/papers/nexus.pdf)
+7. [Nexus: A GPU Cluster Engine for Accelerating DNN-Based Video Analysis](https://homes.cs.washington.edu/~arvind/papers/nexus.pdf)
 8. [VideoEdge: Processing Camera Streams using Hierarchical Clusters](https://ieeexplore.ieee.org/document/8567661)
 9. [Live Video Analytics at Scale with Approximation and Delay-Tolerance](https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/zhang)
 10. [Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing](https://www.usenix.org/conference/atc22/presentation/choi-seungbeom)
@@ -76,9 +76,19 @@ Source:
 Please give a star if this repo helped you learning somthing new :)
 
 ### TODOs
+<<<<<<< HEAD
 1. Send data in compresss way
 2. Add performance evaluation scripts and load tester
 3. Complete Unfinished pipelines
 4. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
 5. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
 6. Pipelines implementation in upcoming Seldon core V2
+=======
+1. Examples of Grpc data transfer
+2. Send data in compresss way
+3. Add performance evaluation scripts and load tester
+4. Complete Unfinished pipelines
+5. Example of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
+6. GPU examples
+7. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
+>>>>>>> b4f5d8f9573854943b0c70563d4721b5313dbd2e

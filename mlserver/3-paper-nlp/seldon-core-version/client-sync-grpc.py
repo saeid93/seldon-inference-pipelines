@@ -1,40 +1,30 @@
-import requests
+import grpc
+from mlserver.grpc.converters import ModelInferResponseConverter
+import mlserver.grpc.dataplane_pb2_grpc as dataplane
+import mlserver.grpc.converters as converters
+from mlserver.codecs.string import StringRequestCodec
+import mlserver.types as types
+import json
 from pprint import PrettyPrinter
 pp = PrettyPrinter(indent=4)
-import json
-from mlserver.types import InferenceResponse
-from mlserver.codecs.string import StringRequestCodec
 
-# single node inference
-gateway_endpoint="localhost:32000"
-deployment_name = 'nlp-li'
-namespace = "default"
+# single node mlserver
+endpoint = "localhost:8081"
+model = 'nlp'
+metadata = []
+grpc_channel = grpc.insecure_channel(endpoint)
+grpc_stub = dataplane.GRPCInferenceServiceStub(grpc_channel)
 
-endpoint = f"http://{gateway_endpoint}/seldon/{namespace}/{deployment_name}/v2/models/infer"
+# single node seldon+mlserver
+# endpoint = "localhost:32000"
+# deployment_name = 'nlp'
+# model = None
+# namespace = "default"
+# metadata = [("seldon", deployment_name), ("namespace", namespace)]
+# grpc_channel = grpc.insecure_channel(endpoint)
+# grpc_stub = dataplane.GRPCInferenceServiceStub(grpc_channel)
 
-# single node inference
-# gateway_endpoint="localhost:8080"
-# model='nlp-li'
-# endpoint = f"http://{gateway_endpoint}/v2/models/{model}/infer"
-
-def send_requests(endpoint, data):
-    payload = {
-        "inputs": [
-            {
-            "name": "text_inputs",
-            "shape": [1],
-            "datatype": "BYTES",
-            "data": data,
-            "parameters": {
-                "content_type": "str"
-            }
-            }
-        ]
-    }
-    response = requests.post(endpoint, json=payload)
-    return response
-
-data=["""
+input_data=["""
 Après des décennies en tant que pratiquant d'arts martiaux et coureur, Wes a "trouvé" le yoga en 2010.
 Il en est venu à apprécier que son ampleur et sa profondeur fournissent un merveilleux lest pour stabiliser
 le corps et l'esprit dans le style de vie rapide et axé sur la technologie d'aujourd'hui ;
@@ -50,16 +40,35 @@ Mieux encore, les cours de yoga sont tout simplement merveilleux :
 ils sont à quelques instants des exigences de la vie où vous pouvez simplement prendre soin de vous physiquement et émotionnellement.
     """]
 
+def send_requests(input_data):
+    inference_request = types.InferenceRequest(
+        inputs=[
+            types.RequestInput(
+                name="text_inputs",
+                shape=[1],
+                datatype="BYTES",
+                data=[input_data.encode('utf8')],
+                parameters=types.Parameters(content_type="str"),
+            )
+        ]
+    )
+    inference_request_g = converters.ModelInferRequestConverter.from_types(
+        inference_request, model_name=model, model_version=None
+    )
+    response = grpc_stub.ModelInfer(
+        request=inference_request_g,
+        metadata=metadata)
+    return response
+
 
 # sync version
 results = []
-for data_ins in data:
-    response = send_requests(endpoint, data_ins)
+for data_ins in input_data:
+    response = send_requests(data_ins)
     results.append(response)
 
-pp.pprint(results[0])
-inference_response = InferenceResponse.parse_raw(response.text)
+# Note that here we just convert from the gRPC types to the MLServer types
+inference_response = ModelInferResponseConverter.to_types(response)
 raw_json = StringRequestCodec.decode_response(inference_response)
 output = json.loads(raw_json[0])
 pp.pprint(output)
-

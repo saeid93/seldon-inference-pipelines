@@ -1,7 +1,0 @@
-{
-    "name": "nlp-li",
-    "implementation": "models.GeneralNLP",
-    "parameters": {
-        "uri": "./fakeuri"
-    }
-}

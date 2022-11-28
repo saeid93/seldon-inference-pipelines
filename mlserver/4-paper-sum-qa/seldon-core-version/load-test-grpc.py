@@ -6,13 +6,13 @@ import asyncio
 
 # single node mlserver
 endpoint = "localhost:8081"
-model = 'nlp-li'
+model = 'sum-qa'
 metadata = []
 
 # single node seldon+mlserver
 # endpoint = "localhost:32000"
-# deployment_name = 'nlp-li'
-# model = 'nlp-li'
+# deployment_name = 'sum-qa'
+# model = 'sum-qa'
 # namespace = "default"
 # metadata = [("seldon", deployment_name), ("namespace", namespace)]
 
