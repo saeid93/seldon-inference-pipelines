@@ -82,11 +82,5 @@ Please give a star if this repo helped you learning somthing new :)
 4. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
 5. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
 6. Pipelines implementation in upcoming Seldon core V2
-=======
-1. Examples of Grpc data transfer
-2. Send data in compresss way
-3. Add performance evaluation scripts and load tester
-4. Complete Unfinished pipelines
-5. Example of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
-6. GPU examples
-7. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
+7. GPU examples
+8. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
