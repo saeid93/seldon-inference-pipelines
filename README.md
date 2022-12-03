@@ -84,3 +84,4 @@ Please give a star if this repo helped you learning somthing new :)
 6. Pipelines implementation in upcoming Seldon core V2
 7. GPU examples
 8. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
+9. Implemnet GPT2 -> DALL-E pipeline inspired from [dalle-runtime](https://github.com/axsaucedo/dalle-runtime)
