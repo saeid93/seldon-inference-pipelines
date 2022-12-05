@@ -77,7 +77,8 @@ Please give a star if this repo helped you learning somthing new :)
 
 ### TODOs (sorted by priority)
 1. Re-implement pipelines in [Seldon V2](https://github.com/SeldonIO/seldon-core/releases/tag/v2.0.0)
-2. Add an example of using [shared pipelines](https://github.com/SeldonIO/seldon-core/issues/4272) using V2
+2. Add an example of using [shared models in pipeliens](https://github.com/SeldonIO/seldon-core/issues/4272) using V2
+3. Example of [multi-model request propagation](https://github.com/SeldonIO/seldon-core/issues/4260)
 3. Examples of [model load/unload](https://github.com/SeldonIO/seldon-core/issues/4241) in Triton and MLServer
 4. GPU examples with fractional GPUs
 5. Send image/audio/text in a compresssed fromat
