@@ -75,13 +75,16 @@ Source:
 
 Please give a star if this repo helped you learning somthing new :)
 
-### TODOs
-1. Send data in compresss way
-2. Add performance evaluation scripts and load tester
-3. Complete Unfinished pipelines
-4. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
-5. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
-6. Pipelines implementation in upcoming Seldon core V2
-7. GPU examples
-8. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
-9. Implemnet GPT2 -> DALL-E pipeline inspired from [dalle-runtime](https://github.com/axsaucedo/dalle-runtime)
+### TODOs (sorted by priority)
+1. Re-implement pipelines in [Seldon V2](https://github.com/SeldonIO/seldon-core/releases/tag/v2.0.0)
+2. Add an example of using [shared pipelines](https://github.com/SeldonIO/seldon-core/issues/4272) using V2
+3. Examples of [model load/unload](https://github.com/SeldonIO/seldon-core/issues/4241) in Triton and MLServer
+4. GPU examples with fractional GPUs
+5. Send image/audio/text in a compresssed fromat
+6. Add performance evaluation scripts and load tester
+7. Complete Unfinished pipelines
+8. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
+9. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
+10. Pipelines implementation in upcoming Seldon core V2
+11. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
+12. Implemnet GPT2 -> DALL-E pipeline inspired from [dalle-runtime](https://github.com/axsaucedo/dalle-runtime)
