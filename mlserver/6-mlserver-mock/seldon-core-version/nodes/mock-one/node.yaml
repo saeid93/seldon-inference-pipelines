@@ -29,6 +29,8 @@ spec:
               value: "0"
             - name: TRANSFORMERS_CACHE
               value: /opt/mlserver/.cache
+            - name: MODEL_SYNC
+              value: "False"
             - name: MLSERVER_MODEL_MAX_BATCH_SIZE
               value: "1"
             - name: MLSERVER_MODEL_MAX_BATCH_TIME

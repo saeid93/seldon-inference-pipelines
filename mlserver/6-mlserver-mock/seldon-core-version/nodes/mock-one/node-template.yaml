@@ -29,6 +29,8 @@ spec:
               value: '{{ model_variant }}'
             - name: TRANSFORMERS_CACHE
               value: /opt/mlserver/.cache
+            - name: MODEL_SYNC
+              value: "False"
             - name: MLSERVER_MODEL_MAX_BATCH_SIZE
               value: '{{ max_batch_size }}'
             - name: MLSERVER_MODEL_MAX_BATCH_TIME
