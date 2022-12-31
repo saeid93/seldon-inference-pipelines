@@ -51,6 +51,7 @@ Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.
 8. [VideoEdge: Processing Camera Streams using Hierarchical Clusters](https://ieeexplore.ieee.org/document/8567661)
 9. [Live Video Analytics at Scale with Approximation and Delay-Tolerance](https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/zhang)
 10. [Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing](https://www.usenix.org/conference/atc22/presentation/choi-seungbeom)
+11. [XRBench: An Extended Reality (XR) Machine Learning Benchmark Suite for the Metaverse](https://arxiv.org/abs/2211.08675)
 
 ### Industrial Projects
 1. [Clarifai Workflows](https://clarifai.com/clarifai/main/workflows)
