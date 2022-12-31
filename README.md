@@ -36,7 +36,8 @@ and the following pipelines:
 ## DockerHub
 Pre-built container images are also available [here](https://hub.docker.com/u/sdghafouri). Therefore if you are just trying out, you can deploy yaml files on your K8S cluster the way they are.
 
-## Sources of Pipelines for Future Implementation
+## Relevant Projects
+Some of the academic and industrial relevant projects that could be used as a source of Inference Pipelines for future implementations.
 
 ### Academic Papers
 1. [InferLine: latency-aware provisioning and scaling for prediction serving pipelines](https://dl.acm.org/doi/10.1145/3419111.3421285)
