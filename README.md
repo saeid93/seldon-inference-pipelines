@@ -57,6 +57,7 @@ Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.
 ### Industrial Projects
 1. [Clarifai Workflows](https://clarifai.com/clarifai/main/workflows)
 2. [Facebook DLRM](https://github.com/facebookresearch/dlrm)
+3. [Nividia DeepStream](https://developer.nvidia.com/deepstream-sdk)
 
 ## Load Tester
 This repo also includes a small async load tester for sending workloads to the models/pipeliens. 
@@ -81,13 +82,14 @@ Please give a star if this repo helped you learning somthing new :)
 1. Re-implement pipelines in [Seldon V2](https://github.com/SeldonIO/seldon-core/releases/tag/v2.0.0)
 2. Add an example of using [shared models in pipeliens](https://github.com/SeldonIO/seldon-core/issues/4272) using V2
 3. Example of [multi-model request propagation](https://github.com/SeldonIO/seldon-core/issues/4260)
-3. Examples of [model load/unload](https://github.com/SeldonIO/seldon-core/issues/4241) in Triton and MLServer
-4. GPU examples with fractional GPUs
-5. Send image/audio/text in a compresssed fromat
-6. Add performance evaluation scripts and load tester
-7. Complete Unfinished pipelines
-8. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
-9. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
-10. Pipelines implementation in upcoming Seldon core V2
-11. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
-12. Implemnet GPT2 -> DALL-E pipeline inspired from [dalle-runtime](https://github.com/axsaucedo/dalle-runtime)
+4. Example implementation using [Nvidia Triton Server](https://developer.nvidia.com/nvidia-triton-inference-server) as the base containers instead of MLServer
+5. Examples of [model load/unload](https://github.com/SeldonIO/seldon-core/issues/4241) in Triton and MLServer
+6. GPU examples with fractional GPUs
+7. Send image/audio/text in a compresssed fromat
+8. Add performance evaluation scripts and load tester
+9. Complete Unfinished pipelines
+10. Examples of using [Triton Client](https://github.com/triton-inference-server/client/tree/main/src/python/examples) for interacting with MLSserver examples
+11. Examples of using [Triton Inference Server](https://github.com/triton-inference-server/server) as the serving backend
+12. Pipelines implementation in upcoming Seldon core V2
+13. Examples of Integration with Autoscalers ([Builtin Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/), [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler) and event-driven autoscaler like [KEDA](https://keda.sh/))
+14. Implemnet GPT2 -> DALL-E pipeline inspired from [dalle-runtime](https://github.com/axsaucedo/dalle-runtime)
