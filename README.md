@@ -39,7 +39,7 @@ Pre-built container images are also available [here](https://hub.docker.com/u/sd
 ## Relevant Projects
 Some of the academic and industrial relevant projects that could be used as a source of Inference Pipelines for future implementations.
 
-### Academic Papers
+### System's related Academic Papers
 1. [InferLine: latency-aware provisioning and scaling for prediction serving pipelines](https://dl.acm.org/doi/10.1145/3419111.3421285)
 2. [GrandSLAm: Guaranteeing SLAs for Jobs in
 Microservices Execution Frameworks](https://jeongseob.github.io/papers/kannan_eurosys19.pdf)
@@ -53,6 +53,19 @@ Auto-Tuning Video Analytics Pipelines](https://web.stanford.edu/~faromero/llama.
 9. [Live Video Analytics at Scale with Approximation and Delay-Tolerance](https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/zhang)
 10. [Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing](https://www.usenix.org/conference/atc22/presentation/choi-seungbeom)
 11. [XRBench: An Extended Reality (XR) Machine Learning Benchmark Suite for the Metaverse](https://arxiv.org/abs/2211.08675)
+
+### ML Theory related Academic Papers
+1. [On Human Intellect and Machine Failures: Troubleshooting Integrative Machine Learning Systems](http://erichorvitz.com/human_repair_AI_pipeline.pdf)
+2. [Fixes That Fail: Self-Defeating Improvements in Machine-Learning Systems](https://proceedings.neurips.cc/paper/2021/file/619427579e7b067421f6aa89d4a8990c-Paper.pdf)
+3. [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903.pdf)
+4. [PaLM: Scaling Language Modeling with Pathways](https://arxiv.org/pdf/2204.02311.pdf)
+5. [Language Model Cascades](https://arxiv.org/pdf/2207.10342.pdf)
+
+### Software Engineering related Academic Papers
+1. [Understanding the Complexity and Its Impact on Testing in ML-Enabled Systems](https://arxiv.org/pdf/2301.03837.pdf)
+2. [PromptChainer: Chaining Large Language Model Prompts through Visual Programming](https://dl.acm.org/doi/pdf/10.1145/3491101.3519729)
+3. [3DALL-E: Integrating Text-to-Image AI in 3D Design Workflows](https://arxiv.org/pdf/2210.11603.pdf)
+4. [Feature Interactions on Steroids: On the Composition of ML Models](https://arxiv.org/abs/2105.06449)
 
 ### Industrial Projects
 1. [Clarifai Workflows](https://clarifai.com/clarifai/main/workflows)
